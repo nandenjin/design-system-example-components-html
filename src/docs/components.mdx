@@ -86,8 +86,11 @@ export function extractBody(html) {
 }
 
 export function storybookUrl(name) {
-  const slug = `components-${name}--docs`.toLowerCase().replace(/\//g, "-").replace(/\s+/g, "-");
-  return `/?path=/docs/${slug}`;
+  const slug = `components-${name}--docs`
+    .toLowerCase()
+    .replace(/\//g, "-")
+    .replace(/\s+/g, "-");
+  return `./?path=/docs/${slug}`;
 }
 
 export const components = [
@@ -107,25 +110,57 @@ export const components = [
   { name: "ドロワー", id: "drawer", html: drawerHtml },
   { name: "緊急時バナー", id: "emergency-banner", html: emergencyBannerHtml },
   { name: "ファイルアップロード", id: "file-upload", html: fileUploadHtml },
-  { name: "フォームコントロールラベル", id: "form-control-label", html: formControlLabelHtml },
-  { name: "ハンバーガーメニューボタン", id: "hamburger-menu-button", html: hamburgerMenuButtonHtml },
+  {
+    name: "フォームコントロールラベル",
+    id: "form-control-label",
+    html: formControlLabelHtml,
+  },
+  {
+    name: "ハンバーガーメニューボタン",
+    id: "hamburger-menu-button",
+    html: hamburgerMenuButtonHtml,
+  },
   { name: "見出し", id: "heading", html: headingHtml },
   { name: "水平メニュー", id: "horizontal-menu", html: horizontalMenuHtml },
   { name: "画像", id: "image", html: imageHtml },
   { name: "インプットテキスト", id: "input-text", html: inputTextHtml },
-  { name: "ランゲージセレクター", id: "language-selector", html: languageSelectorHtml },
+  {
+    name: "ランゲージセレクター",
+    id: "language-selector",
+    html: languageSelectorHtml,
+  },
   { name: "リンク", id: "link", html: linkHtml },
   { name: "箇条書きリスト", id: "list", html: listHtml },
-  { name: "メニューリストボックス", id: "menu-list-box", html: menuListBoxHtml },
+  {
+    name: "メニューリストボックス",
+    id: "menu-list-box",
+    html: menuListBoxHtml,
+  },
   { name: "メニューリスト", id: "menu-list", html: menuListHtml },
-  { name: "ノティフィケーションバナー", id: "notification-banner", html: notificationBannerHtml },
-  { name: "ページナビゲーション", id: "page-navigation", html: pageNavigationHtml },
-  { name: "プログレスインジケーター", id: "progress-indicator", html: progressIndicatorHtml },
+  {
+    name: "ノティフィケーションバナー",
+    id: "notification-banner",
+    html: notificationBannerHtml,
+  },
+  {
+    name: "ページナビゲーション",
+    id: "page-navigation",
+    html: pageNavigationHtml,
+  },
+  {
+    name: "プログレスインジケーター",
+    id: "progress-indicator",
+    html: progressIndicatorHtml,
+  },
   { name: "ラジオボタン", id: "radio", html: radioHtml },
   { name: "リソースリスト", id: "resource-list", html: resourceListHtml },
   { name: "検索ボックス", id: "search-box", html: searchBoxHtml },
   { name: "セレクトボックス", id: "select", html: selectHtml },
-  { name: "ステップナビゲーション", id: "step-navigation", html: stepNavigationHtml },
+  {
+    name: "ステップナビゲーション",
+    id: "step-navigation",
+    html: stepNavigationHtml,
+  },
   { name: "タブ", id: "tab", html: tabHtml },
   { name: "テーブル", id: "table", html: tableHtml },
   { name: "テキストエリア", id: "textarea", html: textareaHtml },
@@ -137,51 +172,75 @@ export const components = [
 <Unstyled>
 <div style={{ padding: "2rem" }}>
 
-<h1 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "0.5rem" }}>コンポーネント一覧</h1>
-<p style={{ color: "#666", marginBottom: "2rem" }}>全{components.length}コンポーネントのサンプル一覧です。</p>
+<h1 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "0.5rem" }}>
+  コンポーネント一覧
+</h1>
+<p style={{ color: "#666", marginBottom: "2rem" }}>
+  全{components.length}コンポーネントのサンプル一覧です。
+</p>
 
-<div style={{
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-  gap: "1.5rem",
-}}>
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+    gap: "1.5rem",
+    alignItems: "start",
+  }}
+>
   {components.map(({ name, id, html }) => (
-    <a key={id} href={storybookUrl(name)} style={{
-      border: "1px solid #e0e0e0",
-      borderRadius: "8px",
-      overflow: "hidden",
-      background: "#fff",
-      display: "block",
-      textDecoration: "none",
-      color: "inherit",
-      transition: "box-shadow 0.15s",
-    }}
-    onMouseEnter={e => e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)"}
-    onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}
-    >
-      <div style={{
-        padding: "1rem",
+    <a
+      key={id}
+      href={storybookUrl(name)}
+      style={{
+        border: "1px solid #e0e0e0",
+        borderRadius: "8px",
         overflow: "hidden",
-        minHeight: "80px",
-        display: "flex",
-        alignItems: "center",
-        background: "#fafafa",
-        borderBottom: "1px solid #e0e0e0",
-        pointerEvents: "none",
-      }}>
+        background: "#fff",
+        display: "block",
+        textDecoration: "none",
+        color: "inherit",
+        transition: "box-shadow 0.15s",
+      }}
+      onMouseEnter={(e) =>
+        (e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)")
+      }
+      onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
+    >
+      <div
+        style={{
+          padding: "1rem",
+          overflow: "hidden",
+          minHeight: "80px",
+          display: "flex",
+          alignItems: "center",
+          background: "#fafafa",
+          borderBottom: "1px solid #e0e0e0",
+          pointerEvents: "none",
+        }}
+      >
         <div
           style={{ width: "100%", overflow: "hidden" }}
           dangerouslySetInnerHTML={{ __html: extractBody(html) }}
         />
       </div>
-      <div style={{
-        padding: "0.75rem 1rem",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}>
+      <div
+        style={{
+          padding: "0.75rem 1rem",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <span style={{ fontWeight: "600", fontSize: "0.9rem" }}>{name}</span>
-        <span style={{ fontSize: "0.75rem", color: "#888", fontFamily: "monospace" }}>{id}</span>
+        <span
+          style={{
+            fontSize: "0.75rem",
+            color: "#888",
+            fontFamily: "monospace",
+          }}
+        >
+          {id}
+        </span>
       </div>
     </a>
   ))}
