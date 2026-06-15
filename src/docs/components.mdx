@@ -40,6 +40,17 @@ import "../components/table/table.css";
 import "../components/textarea/textarea.css";
 import "../components/utility-link/utility-link.css";
 
+import imageSamplePng from "../components/image/sample.png";
+import imageSample2xPng from "../components/image/sample@2x.png";
+import carouselImage1 from "../components/carousel/image-1.webp";
+import carouselImage1x2 from "../components/carousel/image-1@2x.webp";
+import carouselImage2 from "../components/carousel/image-2.webp";
+import carouselImage2x2 from "../components/carousel/image-2@2x.webp";
+import carouselImage3 from "../components/carousel/image-3.webp";
+import carouselImage3x2 from "../components/carousel/image-3@2x.webp";
+import carouselImage4 from "../components/carousel/image-4.webp";
+import carouselImage4x2 from "../components/carousel/image-4@2x.webp";
+
 import accordionHtml from "../components/accordion/playground.html?raw";
 import blockquoteHtml from "../components/blockquote/playground.html?raw";
 import breadcrumbHtml from "../components/breadcrumb/plain.html?raw";
@@ -83,6 +94,34 @@ import utilityLinkHtml from "../components/utility-link/playground.html?raw";
 export function extractBody(html) {
   const match = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
   return match ? match[1].trim() : html;
+}
+
+export const imageAssets = {
+  "sample.png": imageSamplePng,
+  "sample@2x.png": imageSample2xPng,
+  "image-1.webp": carouselImage1,
+  "image-1@2x.webp": carouselImage1x2,
+  "image-2.webp": carouselImage2,
+  "image-2@2x.webp": carouselImage2x2,
+  "image-3.webp": carouselImage3,
+  "image-3@2x.webp": carouselImage3x2,
+  "image-4.webp": carouselImage4,
+  "image-4@2x.webp": carouselImage4x2,
+};
+
+export function resolveImageUrls(html) {
+  return html.replace(/\b(src|srcset)="([^"]+)"/g, (match, attr, value) => {
+    const resolved = value
+      .split(",")
+      .map((part) => {
+        const [url, descriptor] = part.trim().split(/\s+/);
+        const filename = url.split("/").pop();
+        const resolvedUrl = imageAssets[filename] ?? url;
+        return descriptor ? `${resolvedUrl} ${descriptor}` : resolvedUrl;
+      })
+      .join(", ");
+    return `${attr}="${resolved}"`;
+  });
 }
 
 export function storybookUrl(name) {
@@ -292,7 +331,7 @@ export const components = [
           >
             <div
               style={{ width: "100%", overflow: "hidden" }}
-              dangerouslySetInnerHTML={{ __html: extractBody(html) }}
+              dangerouslySetInnerHTML={{ __html: resolveImageUrls(extractBody(html)) }}
             />
           </div>
           <div
